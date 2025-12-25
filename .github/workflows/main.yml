@@ -27,14 +27,14 @@ jobs:
         pip install pytest requests
     
     - name: List files
-      run: ls -R # List files to verify `lab5_final_tests.py` presence
+      run: ls -R # Список файлов для проверки наличия test_api_lab.py
 
     - name: Run API tests
       run: |
-        python -m pytest lab5_final_tests.py -v
+        python -m pytest test_api_lab.py -v
         
         echo "=== Запуск ручного теста для отладки ==="
-        python lab5_final_tests.py
+        python test_api_lab.py
     
     - name: Upload test results (optional)
       if: always() 
