@@ -5,9 +5,8 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
-  # Дополнительно: можно запускать тесты по расписанию
   schedule:
-    - cron: '0 8 * * 1-5' # Каждый будний день в 8 утра
+    - cron: '0 8 * * 1-5'
 
 jobs:
   test:
@@ -27,17 +26,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest requests
     
+    - name: List files
+      run: ls -R # List files to verify `lab5_final_tests.py` presence
+
     - name: Run API tests
       run: |
-        # Сначала запустим тесты через pytest (для CI/CD)
         python -m pytest lab5_final_tests.py -v
         
-        # Затем можно запустить ручной тест для вывода детальной информации
         echo "=== Запуск ручного теста для отладки ==="
         python lab5_final_tests.py
     
-    - name: Upload test results (опционально)
-      if: always() # Запускается даже если тесты упали
+    - name: Upload test results (optional)
+      if: always() 
       uses: actions/upload-artifact@v4
       with:
         name: test-results
